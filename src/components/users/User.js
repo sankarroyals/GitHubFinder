@@ -1,23 +1,21 @@
-import React, { Component, Fragment } from 'react'
+import React, {  Fragment } from 'react'
 import Spinner from '../layouts/Spinner'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Repos from '../repos/Repos';
+import { useEffect} from 'react';
 
 
-export class User extends Component {
-    componentDidMount() {
-        this.props.getUser(this.props.match.params.login) //here it takes params login which passed in UserItem.js above more button and provide details about that params data
-        this.props.getUserRepos(this.props.match.params.login)
-    }
-    static propTypes = {
-        loading: PropTypes.bool,
-        user: PropTypes.object.isRequired,
-        getUser: PropTypes.func.isRequired,
-        getUserRepos: PropTypes.func.isRequired
-    }
+const User = (props) => {
+    useEffect(() => {
+      
+            props.getUser(props.match.params.login) //here it takes params login which passed in UserItem.js above more button and provide details about that params data
+            props.getUserRepos(props.match.params.login)
+            
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        },[])
 
-    render() {
         const {
             name,
             avatar_url,
@@ -32,8 +30,8 @@ export class User extends Component {
             public_gists,
             hireable,
             company
-        } = this.props.user
-        const { loading } = this.props
+        } = props.user
+        const { loading } = props
         
 
         if (loading) { return <Spinner /> }
@@ -42,7 +40,7 @@ export class User extends Component {
                 <Fragment>
                     
 
-                    {/* THIS LINE USED FOR GOING BACK TO ROUTE '/' */}
+                    {/* LINE USED FOR GOING BACK TO ROUTE '/' */}
                     <Link to='/' className='btn btn-light'>Back to search</Link>
                     Hireable: {' '}
                     {hireable ? <i className='fas fa-check text-success' /> : <i className='fas fa-times-circle text-danger' />}
@@ -89,13 +87,18 @@ export class User extends Component {
                         <div className="badge badge-light">Public Repos: {public_repos}</div>
                         <div className="badge badge-dark">Public Gists: {public_gists}</div>
                     </div>
-                    <Repos repos={this.props.repos} />
+                    <Repos repos={props.repos} />
                     
                 </Fragment>
             )
         }
        
     }
+User.propTypes = {
+    loading: PropTypes.bool,
+    user: PropTypes.object.isRequired,
+    getUser: PropTypes.func.isRequired,
+    getUserRepos: PropTypes.func.isRequired
 }
 
 export default User
