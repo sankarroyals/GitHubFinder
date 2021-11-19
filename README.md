@@ -9,3 +9,6 @@ Requirements:
         1. Install npm 
         2. use "npx create-react-app " 
         3. you clone fork this Repo also
+Installations:
+        1. npm i react-router-dom
+        2. npm i axios
