@@ -1,16 +1,19 @@
 import React, {  Fragment } from 'react'
 import Spinner from '../layouts/Spinner'
-import PropTypes from 'prop-types';
+
 import { Link } from 'react-router-dom';
 import Repos from '../repos/Repos';
-import { useEffect} from 'react';
+import { useEffect, useContext} from 'react';
+import GithubContext from '../../context/github/githubContext';
 
 
-const User = (props) => {
+const User = ({match}) => {
+    const githubcontext = useContext(GithubContext)
+    const {getUser , loading, user, repos, getUserRepos} = githubcontext
     useEffect(() => {
       
-            props.getUser(props.match.params.login) //here it takes params login which passed in UserItem.js above more button and provide details about that params data
-            props.getUserRepos(props.match.params.login)
+            getUser(match.params.login) //here it takes params login which passed in UserItem.js above more button and provide details about that params data
+            getUserRepos(match.params.login)
             
         
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -30,8 +33,8 @@ const User = (props) => {
             public_gists,
             hireable,
             company
-        } = props.user
-        const { loading } = props
+        } = user
+        
         
 
         if (loading) { return <Spinner /> }
@@ -87,18 +90,13 @@ const User = (props) => {
                         <div className="badge badge-light">Public Repos: {public_repos}</div>
                         <div className="badge badge-dark">Public Gists: {public_gists}</div>
                     </div>
-                    <Repos repos={props.repos} />
+                    <Repos repos={repos} />
                     
                 </Fragment>
             )
         }
        
     }
-User.propTypes = {
-    loading: PropTypes.bool,
-    user: PropTypes.object.isRequired,
-    getUser: PropTypes.func.isRequired,
-    getUserRepos: PropTypes.func.isRequired
-}
+
 
 export default User

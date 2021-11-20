@@ -1,29 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext } from 'react'
 import { useState } from 'react'
+import GithubContext from '../../context/github/githubContext'
 
 
-const Search= (props)=>{
-
-//    state= {                                                            // BEFORE USING USESTATE
-//         text: '',
-      
-//     }
+const Search = (props) => {
     
+    const githubcontext = useContext(GithubContext)
     
-    
-           const [text,setText] = useState('')              // "text" IS THE NAME AND WE CAN MANUPLATE IT USING "setText"
-
-
-                
-            //     static propTypes = {
-            //     clearUsers: PropTypes.func.isRequired,
-            //     searchUsers: PropTypes.func.isRequired,
-            //     showClear: PropTypes.bool.isRequired,
-            //     showAlert: PropTypes.func.isRequired
-
-            // }
-
+    const [text, setText] = useState('')              // "text" IS THE NAME AND WE CAN MANUPLATE IT USING "setText"
 
 
 
@@ -38,7 +22,7 @@ const Search= (props)=>{
         else {
 
 
-            props.searchUsers(text)                       // TAKING TEXT AS PARAMETER TO SEARCH USERS  see in APP.JS  (searchUsers)  
+           githubcontext.searchUsers(text)                       // TAKING TEXT AS PARAMETER TO SEARCH USERS  see in APP.JS  (searchUsers)  
             setText('')                                   // CLEARING THE INPUT FIELD
        
         }
@@ -63,22 +47,11 @@ const Search= (props)=>{
 
                 {/* CLEAR BUTTON */}
 
-                {props.showClear ? <button className="btn btn-light btn-block" onClick={props.clearUsers}>Clear</button> : null}                                                     
+                {githubcontext.users.length>0 ? <button className="btn btn-light btn-block" onClick={githubcontext.clearUsers}>Clear</button> : null}                                                     
                 
                
             </div>
         )
     }
-
-Search.prototype = {
-
-    
-    clearUsers: PropTypes.func.isRequired,
-    searchUsers: PropTypes.func.isRequired,
-    showClear: PropTypes.bool.isRequired,
-    showAlert: PropTypes.func.isRequired
-
-}
-
 
 export default Search

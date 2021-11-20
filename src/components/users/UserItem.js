@@ -12,7 +12,7 @@ const UserItem = (props) => {
         
         // const { id, login, avtar_url, html_url } = this.props.user               // this line used when we use "class"
        
-        const { login, avatar_url, html_url } = props.user                      // this line used when we use "function"
+        const { login, avatar_url } = props.user                      // this line used when we use "function"
         return (
                 
                 <div className="card text-center">

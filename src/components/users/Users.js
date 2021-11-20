@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext}from 'react'
 import UserItem from './UserItem'
 import Spinner from '../layouts/Spinner';
-import PropTypes from 'prop-types'
-
+import GithubContext from '../../context/github/githubContext';
 
 const Users = (props) => {
+    const githubContext = useContext(GithubContext);                 // INITIALIZING THE CONTEXT
+    const {loading, users} = githubContext;               // GETTING DATA FROM GIthubContext
 
     //  THIS IS DONE BEFORE FETCHING DATA FROM APP.JS 
 
@@ -34,7 +35,7 @@ const Users = (props) => {
 
     // THIS IS DONE AFTER FETCHING DATA FROM APP.JS   IT SENDS DATA AS PROPS SEE THE APP.JS FOR CLARIFICATION INSTEAD OF USING "this.state.user" we use "this.props.user"
 
-        const { users, loading } = props;
+        
     
         if (loading) {                                             // LOADING AND USERS GET FROM APP.JS
         return <Spinner />                      // IF LOADING IS TRUE THEN SHOW SPINNER WHICH IS IN APP.JS
@@ -54,10 +55,7 @@ const Users = (props) => {
     
 }
 
-Users.propTypes = {
-    users: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired
-}
+
 
 const userStyle = {               
     display: 'grid',
