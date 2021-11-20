@@ -1,10 +1,12 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import GithubContext from '../../context/github/githubContext';
 
 const Alert = (props) => {
-    const { alert } = props
+    const githubcontext = useContext(GithubContext)
+    const { alert } = githubcontext
      return (
          alert != null && (<div className={`alert alert-${alert.type}`}>
-             <i className="fas fa-info-circle"></i> {alert.msg}
+             <i className="fas fa-info-circle"></i> {alert}
          </div>
             
 

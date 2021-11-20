@@ -18,7 +18,8 @@ const GithubState = props => {
         users: [],
         user: {},
         repos: [],
-        loading:false
+        loading: false,
+        alert:null
     }
 
     const [state, dispatch] = useReducer(githubReducer, intialState)            // STEP 2
@@ -87,6 +88,17 @@ const GithubState = props => {
         })
     }
 
+
+    // SHOW ALERT
+    const showAlert = (msg, type) => {
+        dispatch({
+            type: SET_ALERT,
+            payload: msg
+        });
+        setTimeout(() => dispatch({type:REMOVE_ALERT}), 3000);
+
+    }
+
     //Set Loading
     const setLoading = () => dispatch({type:SET_LOADING})    // IT GOES TO GITHUBREDUCER.JS FILE
 
@@ -97,7 +109,7 @@ const GithubState = props => {
 
 
     // STEP 3
-    
+
     return <GithubContext.Provider                       // THIS LINE IS FOR PROVIDING THE CONTEXT TO THE APP AND WEE CAN USE IT IN ANY COMPONENT
         value={{
             users: state.users,
@@ -108,7 +120,7 @@ const GithubState = props => {
             searchUsers,
             clearUsers,
             getUser,
-            getUserRepos
+            getUserRepos,showAlert
           
         }}
     

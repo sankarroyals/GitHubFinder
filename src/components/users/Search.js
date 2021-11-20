@@ -17,7 +17,7 @@ const Search = (props) => {
     const onSubmit = (e) =>  {
         e.preventDefault()
         if (text === '') {                                      // IF USER DOES NOT ENTER ANYTHING
-            props.showAlert('Please enter something','light')                // SET ALERT function see in App.js
+           githubcontext.showAlert('Please enter something','light')                // SET ALERT function see in App.js
         }
         else {
 
